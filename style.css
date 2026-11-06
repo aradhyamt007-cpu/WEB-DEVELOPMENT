@@ -1,0 +1,67 @@
+body {
+    background: linear-gradient(to bottom, #6102fa, #e9e502);
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.game-container {
+    background-color: #fcf9f5;
+    width: 450px;
+    margin: 40px auto;
+    padding: 25px;
+    border-radius: 20px;
+}
+
+h1 {
+    color: #09e2c5;
+    font-size: 30px;
+}
+
+p {
+    color: #555;
+}
+
+h3 {
+    color: #777;
+}
+
+#startBtn {
+    background-color: #39e600;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#startBtn:disabled {
+    background-color: gray;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 110px);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.hole {
+    width: 110px;
+    height: 110px;
+    background-color: #e9b4ca;
+    border: none;
+    border-radius: 50%;
+    font-size: 55px;
+    cursor: pointer;
+}
+
+.hole.active {
+    background-color: #e9b4ca;
+}
+
+#message {
+    color: #55ad60;
+    margin-top: 20px;
+}

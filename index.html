@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mevi Whack-A-Mole</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+
+        <h1>MEVI WHACK-A-MOLE</h1>
+
+        <p>Click the mole and earn points!</p>
+
+        <h3>Score: <span id="score">0</span></h3>
+
+        <h3>Time: <span id="time">30</span> Seconds</h3>
+
+        <button id="startBtn" onclick="startGame()">START GAME</button>
+
+        <div class="game-board">
+
+            <button class="hole" onclick="whack(0)"></button>
+            <button class="hole" onclick="whack(1)"></button>
+            <button class="hole" onclick="whack(2)"></button>
+
+            <button class="hole" onclick="whack(3)"></button>
+            <button class="hole" onclick="whack(4)"></button>
+            <button class="hole" onclick="whack(5)"></button>
+
+            <button class="hole" onclick="whack(6)"></button>
+            <button class="hole" onclick="whack(7)"></button>
+            <button class="hole" onclick="whack(8)"></button>
+
+        </div>
+
+        <h3 id="message"></h3>
+
+    </div>
+
+    <script>
+
+        let score = 0;
+        let time = 30;
+        let molePosition = -1;
+        let gameRunning = false;
+
+        let timer;
+        let moleTimer;
+
+        let holes = document.querySelectorAll(".hole");
+
+        function startGame() {
+
+            score = 0;
+            time = 30;
+            gameRunning = true;
+
+            document.getElementById("score").innerHTML = score;
+            document.getElementById("time").innerHTML = time;
+            document.getElementById("message").innerHTML = "";
+
+            document.getElementById("startBtn").disabled = true;
+
+            clearInterval(timer);
+            clearInterval(moleTimer);
+
+            showMole();
+
+            timer = setInterval(function() {
+
+                time--;
+
+                document.getElementById("time").innerHTML = time;
+
+                if (time <= 0) {
+                    endGame();
+                }
+
+            }, 1000);
+
+            moleTimer = setInterval(showMole, 800);
+        }
+
+        function showMole() {
+
+            holes.forEach(hole => {
+                hole.innerHTML = "";
+                hole.classList.remove("active");
+            });
+
+            molePosition = Math.floor(Math.random() * 9);
+
+            holes[molePosition].innerHTML = "🐹";
+            holes[molePosition].classList.add("active");
+        }
+
+        function whack(position) {
+
+            if (gameRunning && position === molePosition) {
+
+                score++;
+
+                document.getElementById("score").innerHTML = score;
+
+                holes[position].innerHTML = "";
+                holes[position].classList.remove("active");
+
+                molePosition = -1;
+            }
+        }
+
+        function endGame() {
+
+            gameRunning = false;
+
+            clearInterval(timer);
+            clearInterval(moleTimer);
+
+            holes.forEach(hole => {
+                hole.innerHTML = "";
+                hole.classList.remove("active");
+            });
+
+            molePosition = -1;
+
+            document.getElementById("message").innerHTML =
+                "Game Over! Your Score: " + score;
+
+            document.getElementById("startBtn").disabled = false;
+        }
+
+    </script>
+
+</body>
+</html>
